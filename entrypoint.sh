@@ -74,7 +74,7 @@ if [[ -z ${1} ]]; then
   create_data_dir
   update_ca_certificates
   generate_ssh_deploy_keys
-  grant_access_to_docker_socket
+# grant_access_to_docker_socket
   configure_ci_runner
 
   start-stop-daemon --start \
