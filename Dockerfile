@@ -41,19 +41,21 @@ RUN apt-get update
 
 RUN apt-get install -y docker-ce
 
-COPY rollout-complete.sh /usr/local/rollout-complete
-COPY pipeline-track.sh /usr/local/pipeline-track
+COPY rollout-complete.sh /usr/local/bin/rollout-complete
+COPY pipeline-track.sh /usr/local/bin/pipeline-track
 
-RUN chmod +x /usr/local/rollout-complete \
-    && chmod +x /usr/local/pipeline-track
+RUN chmod +x /usr/local/bin/rollout-complete \
+    && chmod +x /usr/local/bin/pipeline-track
 
 RUN apt-get clean
 
 RUN usermod -G docker -a $GITLAB_CI_MULTI_RUNNER_USER
 
-COPY entrypoint.sh /sbin/entrypoint.sh
-RUN chmod 755 /sbin/entrypoint.sh
+COPY entrypoint.sh /usr/local/bin/entrypoint
+RUN chmod 755 /usr/local/bin/entrypoint
+COPY override-entrypoint.sh /usr/local/bin/override-entrypoint
+RUN chmod 755 /usr/local/bin/override-entrypoint
 
 VOLUME ["${GITLAB_CI_MULTI_RUNNER_DATA_DIR}"]
 WORKDIR "${GITLAB_CI_MULTI_RUNNER_HOME_DIR}"
-ENTRYPOINT ["/sbin/entrypoint.sh"]
+ENTRYPOINT ["entrypoint"]
