@@ -27,7 +27,8 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv E1DD270288B4E60
 RUN apt-get install -y \
     apt-transport-https \
     ca-certificates \
-    curl \
+    curl \ 
+    jq \
     software-properties-common
 
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
