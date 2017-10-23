@@ -50,7 +50,7 @@ RUN chmod +x /usr/local/bin/rollout-complete \
 
 RUN apt-get clean
 
-RUN usermod -G docker -a $GITLAB_CI_MULTI_RUNNER_USER
+RUN usermod -aG docker $GITLAB_CI_MULTI_RUNNER_USER
 
 COPY entrypoint.sh /usr/local/bin/entrypoint
 RUN chmod 755 /usr/local/bin/entrypoint
