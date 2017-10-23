@@ -1,5 +1,5 @@
 FROM ubuntu:16.04
-LABEL author="Vlad Belous"
+LABEL author="Sergey Stolyarov"
 
 ENV GITLAB_CI_MULTI_RUNNER_VERSION=9.5.0 \
     GITLAB_CI_MULTI_RUNNER_USER=gitlab_ci_multi_runner \
@@ -25,17 +25,22 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv E1DD270288B4E60
  && rm -rf /var/lib/apt/lists/*
 
 
-RUN wget https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl
+RUN sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    software-properties-common
 
-RUN chmod +x ./kubectl \
-    && mv ./kubectl /usr/local/bin/kubectl
-RUN mkdir ${GITLAB_CI_MULTI_RUNNER_HOME_DIR}/.kube
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
-COPY rollout-complete.sh /usr/local/rollout-complete
-COPY pipeline-track.sh /usr/local/pipeline-track
+RUN sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
 
-RUN chmod +x /usr/local/rollout-complete \
-    && chmod +x /usr/local/pipeline-track
+RUN sudo apt-get update
+
+RUN sudo apt-get install docker-ce
 
 RUN apt-get clean
 
