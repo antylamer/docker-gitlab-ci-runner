@@ -25,7 +25,7 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv E1DD270288B4E60
  && rm -rf /var/lib/apt/lists/*
 
 
-RUN sudo apt-get install \
+RUN apt-get install \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -33,14 +33,14 @@ RUN sudo apt-get install \
 
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
-RUN sudo add-apt-repository \
+RUN add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
    $(lsb_release -cs) \
    stable"
 
-RUN sudo apt-get update
+RUN apt-get update
 
-RUN sudo apt-get install docker-ce
+RUN apt-get install docker-ce
 
 RUN apt-get clean
 
