@@ -56,6 +56,8 @@ RUN chmod 755 /usr/local/bin/entrypoint
 COPY override-entrypoint.sh /usr/local/bin/override-entrypoint
 RUN chmod 755 /usr/local/bin/override-entrypoint
 
+RUN export PATH=/usr/local/bin:$PATH
+
 VOLUME ["${GITLAB_CI_MULTI_RUNNER_DATA_DIR}"]
 WORKDIR "${GITLAB_CI_MULTI_RUNNER_HOME_DIR}"
 ENTRYPOINT ["entrypoint"]
