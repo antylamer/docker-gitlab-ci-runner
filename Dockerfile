@@ -41,6 +41,12 @@ RUN apt-get update
 
 RUN apt-get install -y docker-ce
 
+COPY rollout-complete.sh /usr/local/rollout-complete
+COPY pipeline-track.sh /usr/local/pipeline-track
+
+RUN chmod +x /usr/local/rollout-complete \
+    && chmod +x /usr/local/pipeline-track
+
 RUN apt-get clean
 
 RUN usermod -G docker -a $GITLAB_CI_MULTI_RUNNER_USER
