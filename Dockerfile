@@ -43,6 +43,8 @@ RUN apt-get install -y docker-ce
 
 RUN apt-get clean
 
+RUN usermod -G docker -a $GITLAB_CI_MULTI_RUNNER_USER
+
 COPY entrypoint.sh /sbin/entrypoint.sh
 RUN chmod 755 /sbin/entrypoint.sh
 
