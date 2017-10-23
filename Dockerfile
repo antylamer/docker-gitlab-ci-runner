@@ -25,7 +25,7 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv E1DD270288B4E60
  && rm -rf /var/lib/apt/lists/*
 
 
-RUN apt-get install \
+RUN apt-get install -y \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -40,7 +40,7 @@ RUN add-apt-repository \
 
 RUN apt-get update
 
-RUN apt-get install docker-ce
+RUN apt-get install -y docker-ce
 
 RUN apt-get clean
 
